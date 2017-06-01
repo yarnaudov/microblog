@@ -7,9 +7,15 @@ use \App\Models\UserModel;
 class AuthController extends BaseController
 {
     
+    private $user;
+    
+    public function __construct() {
+        parent::__construct();
+        $this->user = new UserModel();
+    }
+    
     public function login () {
-        $this->app->render('admin/login.php');
-        
+        $this->app->render('admin/login.php');  
     }
     
     public function authenticate () {
@@ -17,12 +23,7 @@ class AuthController extends BaseController
         $username = $this->app->request->post('username');
         $password = $this->app->request->post('password');
         
-        $userModel = new UserModel();
-        
-        $user = $userModel->autenticate($username, $password);
-        if ($user) {
-            // set session
-            $this->app->session->set('user', $user);
+        if ($this->user->login($username, $password)) {
             $this->app->redirect('dashboard');
         } else {
             $this->app->flashNow('error', 'Wrong username or password');
@@ -33,7 +34,7 @@ class AuthController extends BaseController
     }
     
     public function logout () {
-        $this->app->session->destroy();
+        $this->user->logout();
         $this->app->redirect('login');
     }
 }

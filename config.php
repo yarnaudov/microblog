@@ -7,7 +7,7 @@ return [
     'log.enabled' => true,
     'log.level' => \Slim\Log::WARN,
     
-    'templates.path' => './templates',
+    'templates.path' => '../src/templates',
     'view' => new \App\View(),
     'layout.admin' => 'admin/main.php',
     'layout.site' => 'site/main.php',

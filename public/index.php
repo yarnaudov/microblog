@@ -2,9 +2,9 @@
 
 use \Slim\Slim;
 
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
-$config = require_once 'config.php';
+$config = require_once '../config.php';
 
 $app = new Slim($config);
 
@@ -24,37 +24,33 @@ $app->container->singleton('session', function () use ($app) {
     return new \App\Session($app->config('session.path'), $app->config('session.name'));
 });
 
+//route protect middleware
+$app->container->singleton('protectRoute', function () use ($app) {
+   return function () use ($app) {
+        $user = new \App\Models\UserModel();
+        if (!$user->isLogedIn()) {
+            echo "user is not loged in!!!!";
+            $app->redirect('login');
+        }
+    };
+});
+
 // admin panel routes
 $app->group('/admin', function () use ($app) {
     
+    // set layout template
     $app->view->setLayout($app->config('layout.admin'));
     
-    
+    // authentication routes
     $app->get('/login', '\App\Controllers\AuthController:login');
     $app->post('/login', '\App\Controllers\AuthController:authenticate');
     $app->get('/logout', '\App\Controllers\AuthController:logout');
     
-    
-    $app->get('/posts', function () use ($app) {
-        
-        $postModel = new \App\Models\PostModel();
-                
-        var_dump($postModel->get(1));
-        
-        $posts = $postModel->getAll();
-        
-        $app->render('admin/posts.php', ['posts' => $posts]);
-    });
-
-    $app->get('/', function () use ($app) {
-        
-        $users = $app->db->query('SELECT * FROM users');
-        foreach ($users as $user) {
-            var_dump($user);    
-        }
-        
-        $app->render('admin/dashboard.php');
-    });
+    // posts routes
+    $app->get('/posts/:id', $app->protectRoute, '\App\Controllers\PostsController:get')->name('post')->conditions(['id' => '[0-9]+']);
+    $app->get('/posts', $app->protectRoute, '\App\Controllers\PostsController:getAll');
+    $app->post('/posts/:id', $app->protectRoute, '\App\Controllers\PostsController:update')->conditions(['id' => '[0-9]+']);
+    $app->post('/posts', $app->protectRoute, '\App\Controllers\PostsController:create');
 	
 });
 

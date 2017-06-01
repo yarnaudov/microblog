@@ -22,4 +22,14 @@ class PostModel extends BaseModel
         return $this->app->db->query("SELECT * FROM posts");
     }
     
+    public function update ($id, $data) {
+        $query = $this->app->db->prepare("UPDATE posts SET title = :title, text = :text WHERE id = :id");
+        $query->bindParam(':id', $id, \PDO::PARAM_INT);
+        $query->bindParam(':title', $data['title'], \PDO::PARAM_STR);
+        $query->bindParam(':text', $data['text'], \PDO::PARAM_STR);
+        //$query->bindParam(':updated_at', time(), \PDO::PARAM_INT);
+        return $query->execute();
+        
+    }
+    
 }

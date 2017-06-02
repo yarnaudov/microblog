@@ -19,7 +19,8 @@ return [
         'pass' => ''
     ],
     
-    'session.path' => 'tmp',
-    'session.name' => 'blog_session'
+    //'session.path' => 'tmp',
+    'session.name' => 'blog_session',
+    'session.expire' => 1 // minutes
     
 ];

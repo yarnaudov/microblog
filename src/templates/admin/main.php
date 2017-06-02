@@ -6,7 +6,25 @@
         <link rel="stylesheet" href="assets/css/styles.css">
     </head>
     <body>
-        layout
+        
+        <header>
+            <div class="container" >
+                <div class="row" >
+                    <div class="col-sm-6" >
+                        <h1>Administration panel</h1>
+                    </div>
+                    <div class="col-sm-6" >
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="/admin/logout" >Logout</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
 
         <?php echo $flash['error']; ?>
 

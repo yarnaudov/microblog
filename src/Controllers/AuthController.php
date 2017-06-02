@@ -29,13 +29,13 @@ class AuthController extends BaseController
             $this->app->flashNow('error', 'Wrong username or password');
         }
  
-        $this->app->render('admin/login.php');
+        $this->app->render('/admin/login.php');
         
     }
     
     public function logout () {
         $this->user->logout();
-        $this->app->redirect('login');
+        $this->app->redirect('/admin/login');
     }
 }
 

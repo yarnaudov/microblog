@@ -21,7 +21,7 @@ $app->container->singleton('db', function () use ($app) {
 
 //initialize session
 $app->container->singleton('session', function () use ($app) {
-    return new \App\Session($app->config('session.path'), $app->config('session.name'));
+    return new \App\Session($app->config('session.path'), $app->config('session.name'), $app->config('session.expire'));
 });
 
 //route protect middleware
@@ -29,8 +29,7 @@ $app->container->singleton('protectRoute', function () use ($app) {
    return function () use ($app) {
         $user = new \App\Models\UserModel();
         if (!$user->isLogedIn()) {
-            echo "user is not loged in!!!!";
-            $app->redirect('login');
+            $app->redirect('/admin/login');
         }
     };
 });
@@ -47,10 +46,9 @@ $app->group('/admin', function () use ($app) {
     $app->get('/logout', '\App\Controllers\AuthController:logout');
     
     // posts routes
-    $app->get('/posts/:id', $app->protectRoute, '\App\Controllers\PostsController:get')->name('post')->conditions(['id' => '[0-9]+']);
-    $app->get('/posts', $app->protectRoute, '\App\Controllers\PostsController:getAll');
-    $app->post('/posts/:id', $app->protectRoute, '\App\Controllers\PostsController:update')->conditions(['id' => '[0-9]+']);
-    $app->post('/posts', $app->protectRoute, '\App\Controllers\PostsController:create');
+    $app->get('/posts', $app->protectRoute, '\App\Controllers\PostsController:get');
+    $app->map('/posts/edit/:id', $app->protectRoute, '\App\Controllers\PostsController:update')->via('GET', 'POST')->conditions(['id' => '[0-9]+']);
+    $app->map('/posts/create', $app->protectRoute, '\App\Controllers\PostsController:create')->via('GET', 'POST');
 	
 });
 

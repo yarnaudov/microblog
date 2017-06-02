@@ -5,7 +5,18 @@ namespace App;
 class Session
 {
     
-    public function __construct ($path, $name) {
+    public function __construct ($path, $name, $expire) {
+        
+        if ($path) {
+            session_save_path($path);
+        }
+        if ($name) {
+            session_name($name);
+        }
+        if ($expire) {
+            session_cache_expire($expire);
+        }
+        
         session_start();
     }
     

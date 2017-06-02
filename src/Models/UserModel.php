@@ -5,6 +5,10 @@ namespace App\Models;
 class UserModel extends BaseModel
 {
     
+    public static function model () {
+        return new self();
+    }
+    
     public function login ($username, $password) {
         $query = $this->app->db->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
         $query->bindParam(':username', $username, \PDO::PARAM_STR);
@@ -30,6 +34,10 @@ class UserModel extends BaseModel
             return true;
         }
         return false;
+    }
+    
+    public function getLogedUser () {
+        return $this->app->session->read('user');
     }
     
     public function get ($id) {

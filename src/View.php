@@ -2,6 +2,8 @@
 
 namespace App;
 
+use \App\Models\UserModel;
+
 /*
  * Simple view class to allow use of layouts
  */
@@ -17,7 +19,11 @@ class View extends \Slim\View
         
         $content = parent::render($template, $data);
         
-        return parent::render($this->layout, ['content' => $content]);
+        return parent::render($this->layout, [
+            'content' => $content,
+            'isLoggedIn' => UserModel::model()->isLoggedIn(),
+            'user' => UserModel::model()->getLogedUser()
+        ]);
         
     }
 }

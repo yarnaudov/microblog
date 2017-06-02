@@ -14,6 +14,7 @@
                         <h1>Administration panel</h1>
                     </div>
                     <div class="col-sm-6" >
+                        <?php if($isLoggedIn) { ?>
                         <nav>
                             <ul>
                                 <li>
@@ -24,7 +25,12 @@
                                 </li>
                             </ul>
                         </nav>
+                        <?php } ?>
+                        
+                        <?php if($isLoggedIn) { ?>
+                        <?php echo $user['name']; ?>
                         <a href="/admin/logout" >Logout</a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

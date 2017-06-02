@@ -28,7 +28,7 @@ $app->container->singleton('session', function () use ($app) {
 //route protect middleware
 $app->container->singleton('protectRoute', function () use ($app) {
    return function () use ($app) {
-        if (!UserModel::model()->isLogedIn()) {
+        if (!UserModel::model()->isLoggedIn()) {
             $app->redirect('/admin/login');
         }
     };

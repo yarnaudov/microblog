@@ -29,7 +29,7 @@ class UserModel extends BaseModel
         $this->app->session->remove('user');
     }
     
-    public function isLogedIn () {
+    public function isLoggedIn () {
         if ($this->app->session->get('user')) {
             return true;
         }

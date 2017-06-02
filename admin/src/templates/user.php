@@ -35,11 +35,11 @@
     <div class="form-group row">
         <div class="col-5 offset-2">
             <button class="btn btn-primary" type="submit" >Save</button>
-            <a href="/admin/users" >Cancel</a>
+            <a href="/users" >Cancel</a>
         </div>
         <div class="col-5 text-right">
             <?php if (isset($data['id'])) { ?>
-            <a class="btn btn-danger" href="/admin/users/delete/<?php echo $data['id']; ?>" >Delete</a>
+            <a class="btn btn-danger" href="/users/delete/<?php echo $data['id']; ?>" >Delete</a>
             <?php } ?>
         </div>
     </div>

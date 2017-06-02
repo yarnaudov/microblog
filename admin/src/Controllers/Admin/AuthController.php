@@ -16,7 +16,7 @@ class AuthController extends BaseController
     }
     
     public function login () {
-        $this->app->render('admin/login.php');  
+        $this->app->render('login.php');  
     }
     
     private function validate ($data) {
@@ -47,20 +47,20 @@ class AuthController extends BaseController
         } else {
             // try to login user
             if ($this->user->login($data['username'], $data['password'])) {
-                $this->app->redirect('/admin/posts');
+                $this->app->redirect('/posts');
             } else {
                 $this->app->flashNow('error', 'Wrong username or password');
             }
             
         }
  
-        $this->app->render('/admin/login.php', ['data' => $data]);
+        $this->app->render('/login.php', ['data' => $data]);
         
     }
     
     public function logout () {
         $this->user->logout();
-        $this->app->redirect('/admin/login');
+        $this->app->redirect('/login');
     }
 }
 

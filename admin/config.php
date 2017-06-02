@@ -7,10 +7,8 @@ return [
     'log.enabled' => true,
     'log.level' => \Slim\Log::WARN,
     
-    'templates.path' => '../src/templates',
+    'templates.path' => './src/templates',
     'view' => new \App\View(),
-    'layout.admin' => 'admin/main.php',
-    'layout.site' => 'frontend/main.php',
     
     'database' => [
         'host' => 'localhost:3306',

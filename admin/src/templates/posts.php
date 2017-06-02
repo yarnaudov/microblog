@@ -1,7 +1,7 @@
 
 <div class="row" >
     <div class="col-12" >
-        <a class="btn btn-primary" href="/admin/posts/create" >New</a>
+        <a class="btn btn-primary" href="/posts/create" >New</a>
     </div>
 </div>
 
@@ -24,7 +24,7 @@
                 <?php foreach ($posts as $post) { ?>
                 <tr>
                     <td>
-                        <a href="/admin/posts/edit/<?php echo $post['id']; ?>">
+                        <a href="/posts/edit/<?php echo $post['id']; ?>">
                             <?php echo $post['title']; ?>
                         </a>
                     </td>

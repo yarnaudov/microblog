@@ -9,7 +9,7 @@ class UsersController extends BaseController
 {
     
     public function get () {
-        $this->app->render('admin/users.php', [
+        $this->app->render('users.php', [
             'users' => UserModel::model()->getAll(),
             'dateHelper' => function ($timestamp) {
                 // if timestamp is null return empty string 
@@ -78,7 +78,7 @@ class UsersController extends BaseController
         
         if ($result) {
             $this->app->flash('success', 'User was saved successfuly');
-            $this->app->redirect('/admin/users');
+            $this->app->redirect('/users');
         } else {
             $this->app->flashNow('error', 'Could not update user');
         }
@@ -95,7 +95,7 @@ class UsersController extends BaseController
             $this->save($id, $data);
         }
         
-        $this->app->render('admin/user.php', ['data' => $data]);
+        $this->app->render('user.php', ['data' => $data]);
     }
     
     public function create () {
@@ -108,7 +108,7 @@ class UsersController extends BaseController
             $this->save(null, $data);
         }
         
-        $this->app->render('admin/user.php', ['data' => $data]);
+        $this->app->render('user.php', ['data' => $data]);
         
     }
    
@@ -118,7 +118,7 @@ class UsersController extends BaseController
         } else {
             $this->app->flash('error', 'User was deleted successfuly');
         }
-        $this->app->redirect('/admin/users');
+        $this->app->redirect('/users');
     }
     
 }

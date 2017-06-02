@@ -1,4 +1,4 @@
 /nbproject/private/
-/node_modules/
-/vendor/
 /.sass-cache/
+/admin/node_modules/
+/admin/vendor/

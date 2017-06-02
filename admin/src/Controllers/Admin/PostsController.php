@@ -9,7 +9,7 @@ class PostsController extends BaseController
 {
     
     public function get () {
-        $this->app->render('admin/posts.php', [
+        $this->app->render('posts.php', [
             'posts' => PostModel::model()->getAll(),
             'dateHelper' => function ($timestamp) {
                 // if timestamp is null return empty string 
@@ -62,7 +62,7 @@ class PostsController extends BaseController
         
         if ($result) {
             $this->app->flash('success', 'Post was saved successfuly');
-            $this->app->redirect('/admin/posts');
+            $this->app->redirect('/posts');
         } else {
             $this->app->flashNow('error', 'Could not update the post');
         }
@@ -79,7 +79,7 @@ class PostsController extends BaseController
             $this->save($id, $data);
         }
         
-        $this->app->render('admin/post.php', ['data' => $data]);
+        $this->app->render('post.php', ['data' => $data]);
     }
     
     public function create () {
@@ -92,7 +92,7 @@ class PostsController extends BaseController
             $this->save(null, $data);
         }
         
-        $this->app->render('admin/post.php', ['data' => $data]);
+        $this->app->render('post.php', ['data' => $data]);
         
     }
    
@@ -102,7 +102,7 @@ class PostsController extends BaseController
         } else {
             $this->app->flash('error', 'Post was deleted successfuly');
         }
-        $this->app->redirect('/admin/posts');
+        $this->app->redirect('/posts');
     }
     
 }

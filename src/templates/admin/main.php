@@ -17,10 +17,14 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="/admin/logout" >Logout</a>
+                                    <a href="/admin/posts" >Posts</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/users" >Users</a>
                                 </li>
                             </ul>
                         </nav>
+                        <a href="/admin/logout" >Logout</a>
                     </div>
                 </div>
             </div>

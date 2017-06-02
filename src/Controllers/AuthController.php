@@ -24,7 +24,7 @@ class AuthController extends BaseController
         $password = $this->app->request->post('password');
         
         if ($this->user->login($username, $password)) {
-            $this->app->redirect('dashboard');
+            $this->app->redirect('/admin/posts');
         } else {
             $this->app->flashNow('error', 'Wrong username or password');
         }

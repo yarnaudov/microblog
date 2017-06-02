@@ -17,7 +17,7 @@ class UserModel extends BaseModel
         
         $user = $query->fetch(\PDO::FETCH_ASSOC);
         if ($user) {
-            $this->app->session->write('user', $user);
+            $this->app->session->put('user', $user);
             return true;
         }
         
@@ -30,14 +30,14 @@ class UserModel extends BaseModel
     }
     
     public function isLogedIn () {
-        if ($this->app->session->read('user')) {
+        if ($this->app->session->get('user')) {
             return true;
         }
         return false;
     }
     
     public function getLogedUser () {
-        return $this->app->session->read('user');
+        return $this->app->session->get('user');
     }
     
     public function get ($id) {

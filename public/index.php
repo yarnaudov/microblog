@@ -21,7 +21,7 @@ $app->container->singleton('db', function () use ($app) {
 
 //initialize session
 $app->container->singleton('session', function () use ($app) {
-    return new \App\Session($app->config('session.path'), $app->config('session.name'), $app->config('session.expire'));
+    return new \App\Session($app->config('session'));
 });
 
 //route protect middleware

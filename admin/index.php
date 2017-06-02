@@ -62,12 +62,10 @@ $app->map('/users/edit/:id', $app->protectRoute, '\App\Controllers\Admin\UsersCo
 $app->map('/users/create', $app->protectRoute, '\App\Controllers\Admin\UsersController:create')->via('GET', 'POST');
 $app->map('/users/delete/:id', $app->protectRoute, '\App\Controllers\Admin\UsersController:delete')->via('GET', 'POST')->conditions(['id' => '[0-9]+']);
 
-
 // redirect to posts route
 $app->get('/', function () use ($app) {
     $app->redirect('/posts');
 });
-
 
 // API REST
 $app->group('/api', function () use ($app) {

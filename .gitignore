@@ -1,5 +1,16 @@
 /nbproject/private/
-/.sass-cache/
+
 /admin/node_modules/
+/admin/npm-debug.log
+/admin/debug.log
 /admin/vendor/
+
+/site/.sass-cache/
 /site/node_modules/
+/site/npm-debug.log
+/site/debug.log
+/site/src/**/*.js
+!/site/src/systemjs.config.extras.js
+!/site/src/systemjs.config.js
+!/site/src/systemjs-angular-loader.js
+*.js.map

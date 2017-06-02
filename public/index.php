@@ -41,20 +41,24 @@ $app->group('/admin', function () use ($app) {
     $app->view->setLayout($app->config('layout.admin'));
     
     // authentication routes
-    $app->get('/login', '\App\Controllers\AuthController:login');
-    $app->post('/login', '\App\Controllers\AuthController:authenticate');
-    $app->get('/logout', '\App\Controllers\AuthController:logout');
+    $app->get('/login', '\App\Controllers\Admin\AuthController:login');
+    $app->post('/login', '\App\Controllers\Admin\AuthController:authenticate');
+    $app->get('/logout', '\App\Controllers\Admin\AuthController:logout');
     
     // posts routes
-    $app->get('/posts', $app->protectRoute, '\App\Controllers\PostsController:get');
-    $app->map('/posts/edit/:id', $app->protectRoute, '\App\Controllers\PostsController:update')->via('GET', 'POST')->conditions(['id' => '[0-9]+']);
-    $app->map('/posts/create', $app->protectRoute, '\App\Controllers\PostsController:create')->via('GET', 'POST');
+    $app->get('/posts', $app->protectRoute, '\App\Controllers\Admin\PostsController:get');
+    $app->map('/posts/edit/:id', $app->protectRoute, '\App\Controllers\Admin\PostsController:update')->via('GET', 'POST')->conditions(['id' => '[0-9]+']);
+    $app->map('/posts/create', $app->protectRoute, '\App\Controllers\Admin\PostsController:create')->via('GET', 'POST');
 	
 });
 
 // frontend routes
-$app->get('/', function ($name) {
-    echo "Hello, " . $name;
+$app->get('/', function () use ($app) {
+    // set layout to false to prevend rendering it
+    $app->view->setLayout(false);
+    $app->render($app->config('layout.site'));
 });
+$app->get('/posts', '\App\Controllers\Frontend\PostsController:getMany');
+$app->get('/posts/:id', '\App\Controllers\Frontend\PostsController:get')->conditions(['id' => '[0-9]+']);
 
 $app->run();

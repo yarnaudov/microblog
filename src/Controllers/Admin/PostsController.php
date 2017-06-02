@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
+use App\Controllers\BaseController;
 use \App\Models\PostModel;
 
 class PostsController extends BaseController
 {
     
-    private $post;
-    
     function __construct() {
         parent::__construct();
-        $this->post = new PostModel();
     }
     
     public function get () {
         $this->app->render('admin/posts.php', [
-            'posts' => $this->post->getAll(),
+            'posts' => PostModel::model()->getAll(),
             'dateHelper' => function ($timestamp) {
                 // if timestamp is null return empty string 
                 if (is_null($timestamp)) {
@@ -61,9 +59,9 @@ class PostsController extends BaseController
         }
         
         if ($id) {
-            $result = $this->post->update($id, $data);
+            $result = PostModel::model()->update($id, $data);
         } else {
-            $result = $this->post->create($data);
+            $result = PostModel::model()->create($data);
         }
         
         if ($result) {
@@ -77,7 +75,7 @@ class PostsController extends BaseController
     
     public function update ($id) {
         
-         $data = $this->post->get($id);
+         $data = PostModel::model()->get($id);
         
         // if post request save model
         if ($this->app->request->isPost()) {

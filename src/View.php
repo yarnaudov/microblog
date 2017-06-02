@@ -19,11 +19,16 @@ class View extends \Slim\View
         
         $content = parent::render($template, $data);
         
-        return parent::render($this->layout, [
-            'content' => $content,
-            'isLoggedIn' => UserModel::model()->isLoggedIn(),
-            'user' => UserModel::model()->getLogedUser()
-        ]);
+        // skip layout render if not set
+        if ($this->layout) {
+            return parent::render($this->layout, [
+                'content' => $content,
+                'isLoggedIn' => UserModel::model()->isLoggedIn(),
+                'user' => UserModel::model()->getLogedUser()
+            ]);
+        }
+        
+        return $content;
         
     }
 }

@@ -5,6 +5,10 @@ namespace App\Models;
 class PostModel extends BaseModel
 {
     
+    public static function model () {
+        return new self();
+    }
+    
     public function delete ($id) {
         $query = $this->app->db->prepare("DELETE FROM posts WHERE id = :id");
         $query->bindParam(':id', $id, \PDO::PARAM_INT);
@@ -19,7 +23,9 @@ class PostModel extends BaseModel
     }
     
     public function getAll () {
-        return $this->app->db->query("SELECT * FROM posts");
+        $query = $this->app->db->prepare("SELECT * FROM posts");
+        $query->execute();
+        return $query->fetchAll (\PDO::FETCH_ASSOC);
     }
     
     public function update ($id, $data) {

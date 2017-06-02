@@ -1,8 +1,26 @@
 <form action="" method="post" >
-    <input type="text" name="title" value="<?php echo isset($data['title']) ? $data['title'] : ""; ?>" >
-    <?php echo $flash['error.title']; ?>
-    <textarea name="text" ><?php echo isset($data['text']) ? $data['text'] : ""; ?></textarea>
-    <?php echo $flash['error.text']; ?>
-    <button type="submit" >Save</button>
-    <a href="/admin/posts" >Cancel</a>
+    
+    <div class="form-group row<?php echo $flash['error.title'] ? ' has-danger' : '' ?>">
+        <label for="title" class="col-2 col-form-label">Title</label>
+        <div class="col-10">
+            <input class="form-control" type="text" name="title" value="<?php echo isset($data['title']) ? $data['title'] : ""; ?>" id="title" >
+            <div class="form-control-feedback"><?php echo $flash['error.title']; ?></div>
+        </div>
+    </div>
+    
+    <div class="form-group row<?php echo $flash['error.text'] ? ' has-danger' : '' ?>">
+        <label for="text" class="col-2 col-form-label">Text</label>
+        <div class="col-10">
+            <textarea class="form-control" name="text" id="text" rows="10" ><?php echo isset($data['text']) ? $data['text'] : ""; ?></textarea>
+            <div class="form-control-feedback"><?php echo $flash['error.text']; ?></div>
+        </div>
+    </div>
+    
+    <div class="form-group row">
+        <div class="col-10 offset-2">
+            <button class="btn btn-primary" type="submit" >Save</button>
+            <a href="/admin/posts" >Cancel</a>
+        </div>
+    </div>
+    
 </form>

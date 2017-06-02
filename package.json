@@ -1,0 +1,22 @@
+{
+  "name": "microblog",
+  "version": "1.0.0",
+  "description": "simple blog",
+  "main": "public/index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://yarnaudov@github.com/yarnaudov/microblog.git"
+  },
+  "author": "yarnaudov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yarnaudov/microblog/issues"
+  },
+  "homepage": "https://github.com/yarnaudov/microblog#readme",
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6"
+  }
+}

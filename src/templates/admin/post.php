@@ -17,9 +17,12 @@
     </div>
     
     <div class="form-group row">
-        <div class="col-10 offset-2">
+        <div class="col-5 offset-2">
             <button class="btn btn-primary" type="submit" >Save</button>
             <a href="/admin/posts" >Cancel</a>
+        </div>
+        <div class="col-5 text-right">
+            <a class="btn btn-danger" href="/admin/posts/delete/<?php echo $data['id']; ?>" >Delete</a>
         </div>
     </div>
     

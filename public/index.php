@@ -49,7 +49,20 @@ $app->group('/admin', function () use ($app) {
     $app->get('/posts', $app->protectRoute, '\App\Controllers\Admin\PostsController:get');
     $app->map('/posts/edit/:id', $app->protectRoute, '\App\Controllers\Admin\PostsController:update')->via('GET', 'POST')->conditions(['id' => '[0-9]+']);
     $app->map('/posts/create', $app->protectRoute, '\App\Controllers\Admin\PostsController:create')->via('GET', 'POST');
+    $app->map('/posts/delete/:id', $app->protectRoute, '\App\Controllers\Admin\PostsController:delete')->via('GET', 'POST')->conditions(['id' => '[0-9]+']);
 	
+    // users routes
+    $app->get('/users', $app->protectRoute, '\App\Controllers\Admin\UsersController:get');
+    $app->map('/users/edit/:id', $app->protectRoute, '\App\Controllers\Admin\UsersController:update')->via('GET', 'POST')->conditions(['id' => '[0-9]+']);
+    $app->map('/users/create', $app->protectRoute, '\App\Controllers\Admin\UsersController:create')->via('GET', 'POST');
+    $app->map('/users/delete/:id', $app->protectRoute, '\App\Controllers\Admin\UsersController:delete')->via('GET', 'POST')->conditions(['id' => '[0-9]+']);
+
+    
+    // redirect to posts route
+    $app->get('/', function () use ($app) {
+        $app->redirect('admin/posts');
+    });
+    
 });
 
 // frontend routes
@@ -58,6 +71,7 @@ $app->get('/', function () use ($app) {
     $app->view->setLayout(false);
     $app->render($app->config('layout.site'));
 });
+// REST
 $app->get('/posts', '\App\Controllers\Frontend\PostsController:getMany');
 $app->get('/posts/:id', '\App\Controllers\Frontend\PostsController:get')->conditions(['id' => '[0-9]+']);
 

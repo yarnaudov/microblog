@@ -47,7 +47,35 @@ class UserModel extends BaseModel
     }
     
     public function getAll () {
-        return $this->db->query("SELECT * FROM users");
+        $query = $this->app->db->prepare("SELECT * FROM users");
+        $query->execute();
+        return $query->fetchAll (\PDO::FETCH_ASSOC);
+    }
+    
+    public function update ($id, $data) {
+        
+        var_dump($data);
+        exit;
+        
+        $query = $this->app->db->prepare("UPDATE users SET `name` = :name, `username` = :username, `email` = :email, `password` = :password WHERE `id` = :id");
+        $query->bindParam(':id', $id, \PDO::PARAM_INT);
+        $query->bindParam(':name', $data['name'], \PDO::PARAM_STR);
+        $query->bindParam(':username', $data['username'], \PDO::PARAM_STR);
+        $query->bindParam(':email', $data['email'], \PDO::PARAM_STR);
+        $query->bindParam(':password', password_hash($data['password'], PASSWORD_DEFAULT), \PDO::PARAM_STR);
+        return $query->execute();
+        
+    }
+    
+    public function create ($data) {
+        
+        $query = $this->app->db->prepare("INSERT INTO users (`name`, `username`, `email`) VALUES (:name, :username, :email)");
+        $query->bindParam(':name', $data['name'], \PDO::PARAM_STR);
+        $query->bindParam(':username', $data['username'], \PDO::PARAM_STR);
+        $query->bindParam(':email', $data['email'], \PDO::PARAM_STR);
+        $query->bindColumn();
+        return $query->execute();
+        
     }
     
 }

@@ -3,9 +3,9 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use \App\Models\PostModel;
+use \App\Models\UserModel;
 
-class PostsController extends BaseController
+class UsersController extends BaseController
 {
     
     function __construct() {
@@ -13,8 +13,8 @@ class PostsController extends BaseController
     }
     
     public function get () {
-        $this->app->render('admin/posts.php', [
-            'posts' => PostModel::model()->getAll(),
+        $this->app->render('admin/users.php', [
+            'users' => UserModel::model()->getAll(),
             'dateHelper' => function ($timestamp) {
                 // if timestamp is null return empty string 
                 if (is_null($timestamp)) {
@@ -30,16 +30,27 @@ class PostsController extends BaseController
     private function validate ($data) {
         $errors = [];
         
-        // check title
-        if (!isset($data['title']) || empty($data['title'])) {
-            $errors['error.title'] = 'Please fill Title';
-        } else if (mb_strlen($data['title']) > 200) {
-            $errors['error.title'] = 'Title can be maximum 200 characters';
+        // check name
+        if (!isset($data['name']) || empty($data['name'])) {
+            $errors['error.name'] = 'Please fill Name';
+        } else if (mb_strlen($data['name']) > 100) {
+            $errors['error.name'] = 'Name can be maximum 100 characters';
         }
         
-        // check text
-        if (!isset($data['text']) || empty($data['text'])) {
-            $errors['error.text'] = 'Please fill Text';
+        // check username
+        if (!isset($data['username']) || empty($data['username'])) {
+            $errors['error.username'] = 'Please fill Username';
+        } else if (mb_strlen($data['username']) > 20) {
+            $errors['error.username'] = 'Username can be maximum 20 characters';
+        }
+        
+        // check email
+        if (!isset($data['email']) || empty($data['email'])) {
+            $errors['error.email'] = 'Please fill Email';
+        } else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['error.email'] = 'Email is not valid';
+        } else if (mb_strlen($data['email']) > 20) {
+            $errors['error.email'] = 'Email can be maximum 100 characters';
         }
         
         return $errors;
@@ -59,31 +70,31 @@ class PostsController extends BaseController
         }
         
         if ($id) {
-            $result = PostModel::model()->update($id, $data);
+            $result = UserModel::model()->update($id, $data);
         } else {
-            $result = PostModel::model()->create($data);
+            $result = UserModel::model()->create($data);
         }
         
         if ($result) {
-            $this->app->flash('success', 'Post was saved successfuly');
-            $this->app->redirect('/admin/posts');
+            $this->app->flash('success', 'User was saved successfuly');
+            $this->app->redirect('/admin/users');
         } else {
-            $this->app->flashNow('error', 'Could not update the post');
+            $this->app->flashNow('error', 'Could not update user');
         }
         
     }
     
     public function update ($id) {
         
-         $data = PostModel::model()->get($id);
+         $data = UserModel::model()->get($id);
         
         // if post request save model
         if ($this->app->request->isPost()) {
-            $data = $this->app->request->post();
+            $data = array_merge($data, $this->app->request->post());
             $this->save($id, $data);
         }
         
-        $this->app->render('admin/post.php', ['data' => $data]);
+        $this->app->render('admin/user.php', ['data' => $data]);
     }
     
     public function create () {
@@ -96,12 +107,12 @@ class PostsController extends BaseController
             $this->save(null, $data);
         }
         
-        $this->app->render('admin/post.php', ['data' => $data]);
+        $this->app->render('admin/user.php', ['data' => $data]);
         
     }
    
     public function delete ($id) {
-        if (PostModel::model()->delete($id)) {
+        if (UserModel::model()->delete($id)) {
             $this->app->flash('error', 'Could not delete the post');
         } else {
             $this->app->flash('error', 'Post was deleted successfuly');

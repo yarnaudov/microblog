@@ -28,19 +28,30 @@
                     </ul>
                     
                     <?php if($isLoggedIn) { ?>
-                        <?php echo $user['name']; ?>
-                        <a href="/admin/logout" >Logout</a>
-                        <?php } ?>
+                    <span>Welcome, <?php echo $user['name']; ?></span>
+                    <a class="logout" href="/admin/logout" >logout</a>
+                    <?php } ?>
                     
                 </div>
                 <?php } ?>
             </nav>
         </header>
 
-        <?php echo $flash['error']; ?>
-        
         <br>
         <div class="container" >
+            
+            <?php if($flash['error']) { ?>
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> <?php echo $flash['error']; ?>
+            </div>
+            <?php } ?>
+            
+            <?php if($flash['success']) { ?>
+            <div class="alert alert-success" role="alert">
+                <strong>Success!</strong> <?php echo $flash['success']; ?>
+            </div>
+            <?php } ?>
+            
             <?php echo isset($content) ? $content : ''; ?>
         </div>
 

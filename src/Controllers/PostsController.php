@@ -45,8 +45,7 @@ class PostsController extends BaseController
         }
         
         return $errors;
-    }
-        
+    }   
     
     private function save ($id = null) {
         
@@ -68,6 +67,7 @@ class PostsController extends BaseController
         }
         
         if ($result) {
+            $this->app->flash('success', 'Post was saved successfuly');
             $this->app->redirect('/admin/posts');
         } else {
             $this->app->flashNow('error', 'Could not update the post');

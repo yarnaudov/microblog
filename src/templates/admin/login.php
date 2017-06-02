@@ -3,7 +3,7 @@
     <div class="form-group row<?php echo $flash['error.username'] ? ' has-danger' : '' ?>">
         <label for="title" class="col-2 offset-3 col-form-label">Username</label>
         <div class="col-4">
-            <input class="form-control" type="text" placeholder="Username" name="username" >
+            <input class="form-control" type="text" placeholder="Username" name="username" value="<?php echo isset($data['username']) ? $data['username'] : '' ?>" >
             <div class="form-control-feedback"><?php echo $flash['error.username']; ?></div>
         </div>
     </div>
@@ -11,7 +11,7 @@
     <div class="form-group row<?php echo $flash['error.password'] ? ' has-danger' : '' ?>">
         <label for="title" class="col-2 offset-3 col-form-label">Password</label>
         <div class="col-4">
-            <input class="form-control" type="text" placeholder="Password" name="password" >
+            <input class="form-control" type="password" placeholder="Password" name="password" value="<?php echo isset($data['password']) ? $data['password'] : '' ?>">
             <div class="form-control-feedback"><?php echo $flash['error.password']; ?></div>
         </div>
     </div>

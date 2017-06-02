@@ -10,13 +10,12 @@ class UserModel extends BaseModel
     }
     
     public function login ($username, $password) {
-        $query = $this->app->db->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $query = $this->app->db->prepare("SELECT * FROM users WHERE username = :username");
         $query->bindParam(':username', $username, \PDO::PARAM_STR);
-        $query->bindParam(':password', $password, \PDO::PARAM_STR);
         $query->execute();
         
         $user = $query->fetch(\PDO::FETCH_ASSOC);
-        if ($user) {
+        if ($user && password_verify($password, $user['password'])) {
             $this->app->session->put('user', $user);
             return true;
         }

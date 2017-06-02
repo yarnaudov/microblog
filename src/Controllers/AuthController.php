@@ -18,18 +18,42 @@ class AuthController extends BaseController
         $this->app->render('admin/login.php');  
     }
     
+    private function validate ($data) {
+        $errors = [];
+        
+        // check username
+        if (!isset($data['username']) || empty($data['username'])) {
+            $errors['error.username'] = 'Please fill Username';
+        }
+        
+        // check password
+        if (!isset($data['password']) || empty($data['password'])) {
+            $errors['error.password'] = 'Please fill Password';
+        }
+        
+        return $errors;
+    }
+    
     public function authenticate () {
         
-        $username = $this->app->request->post('username');
-        $password = $this->app->request->post('password');
-        
-        if ($this->user->login($username, $password)) {
-            $this->app->redirect('/admin/posts');
+        $data = $this->app->request->post();
+ 
+        $errors = $this->validate($data);
+        if ($errors) {
+            foreach ($errors as $key => $value) {
+                $this->app->flashNow($key, $value);
+            }
         } else {
-            $this->app->flashNow('error', 'Wrong username or password');
+            // try to login user
+            if ($this->user->login($data['username'], $data['password'])) {
+                $this->app->redirect('/admin/posts');
+            } else {
+                $this->app->flashNow('error', 'Wrong username or password');
+            }
+            
         }
  
-        $this->app->render('/admin/login.php');
+        $this->app->render('/admin/login.php', ['data' => $data]);
         
     }
     

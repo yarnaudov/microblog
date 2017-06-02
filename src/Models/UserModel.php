@@ -52,13 +52,12 @@ class UserModel extends BaseModel
         return $query->fetchAll (\PDO::FETCH_ASSOC);
     }
     
-    public function update ($id, $data) {
+    public function create ($data) {
         
-        var_dump($data);
-        exit;
-        
-        $query = $this->app->db->prepare("UPDATE users SET `name` = :name, `username` = :username, `email` = :email, `password` = :password WHERE `id` = :id");
-        $query->bindParam(':id', $id, \PDO::PARAM_INT);
+        $query = $this->app->db->prepare("
+            INSERT INTO users (`name`, `username`, `email`, `password`) 
+            VALUES (:name, :username, :email, :password)
+        ");
         $query->bindParam(':name', $data['name'], \PDO::PARAM_STR);
         $query->bindParam(':username', $data['username'], \PDO::PARAM_STR);
         $query->bindParam(':email', $data['email'], \PDO::PARAM_STR);
@@ -67,15 +66,31 @@ class UserModel extends BaseModel
         
     }
     
-    public function create ($data) {
+    public function update ($id, $data) {
         
-        $query = $this->app->db->prepare("INSERT INTO users (`name`, `username`, `email`) VALUES (:name, :username, :email)");
+        $query = $this->app->db->prepare("
+            UPDATE users SET
+                `name` = :name, 
+                `username` = :username,
+                `email` = :email
+                " . (!empty($data['password']) ? ', `password` = :password' : '') . "
+            WHERE `id` = :id
+        ");
+        $query->bindParam(':id', $id, \PDO::PARAM_INT);
         $query->bindParam(':name', $data['name'], \PDO::PARAM_STR);
         $query->bindParam(':username', $data['username'], \PDO::PARAM_STR);
         $query->bindParam(':email', $data['email'], \PDO::PARAM_STR);
-        $query->bindColumn();
+        if (!empty($data['password'])) {
+            $query->bindParam(':password', password_hash($data['password'], PASSWORD_DEFAULT), \PDO::PARAM_STR);
+        }
         return $query->execute();
         
+    }
+    
+    public function delete ($id) {
+        $query = $this->app->db->prepare("DELETE FROM users WHERE id = :id");
+        $query->bindParam(':id', $id, \PDO::PARAM_INT);
+        return $query->execute();
     }
     
 }

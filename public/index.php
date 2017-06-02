@@ -34,6 +34,17 @@ $app->container->singleton('protectRoute', function () use ($app) {
     };
 });
 
+// append some view data
+$app->hook('slim.before.dispatch', function () use($app) {
+    $app->view->appendData([
+        'isLoggedIn' => UserModel::model()->isLoggedIn(),
+        'user' => UserModel::model()->getLogedUser(),
+        'isCurrentRoute' => function ($path) use($app) {
+            return strpos($app->request->getPath(), $path) !== false;
+        }
+    ]);
+});
+
 // admin panel routes
 $app->group('/admin', function () use ($app) {
     

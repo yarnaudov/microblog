@@ -8,10 +8,6 @@ use \App\Models\UserModel;
 class UsersController extends BaseController
 {
     
-    function __construct() {
-        parent::__construct();
-    }
-    
     public function get () {
         $this->app->render('admin/users.php', [
             'users' => UserModel::model()->getAll(),
@@ -27,7 +23,7 @@ class UsersController extends BaseController
         ]);
     }
     
-    private function validate ($data) {
+    private function validate ($data, $validatePassword = false) {
         $errors = [];
         
         // check name
@@ -53,6 +49,11 @@ class UsersController extends BaseController
             $errors['error.email'] = 'Email can be maximum 100 characters';
         }
         
+        //check password
+        if ($validatePassword && (!isset($data['password']) || empty($data['password']))) {
+            $errors['error.password'] = 'Please fill Password';
+        }
+        
         return $errors;
     }   
     
@@ -61,7 +62,7 @@ class UsersController extends BaseController
         $data = $this->app->request->post();
         
         // validate input data and set flash errors
-        $errors = $this->validate($data);
+        $errors = $this->validate($data, $id ? false : true);
         if ($errors) {
             foreach ($errors as $key => $value) {
                 $this->app->flashNow($key, $value);
@@ -113,11 +114,11 @@ class UsersController extends BaseController
    
     public function delete ($id) {
         if (UserModel::model()->delete($id)) {
-            $this->app->flash('error', 'Could not delete the post');
+            $this->app->flash('error', 'Could not delete user');
         } else {
-            $this->app->flash('error', 'Post was deleted successfuly');
+            $this->app->flash('error', 'User was deleted successfuly');
         }
-        $this->app->redirect('/admin/posts');
+        $this->app->redirect('/admin/users');
     }
     
 }

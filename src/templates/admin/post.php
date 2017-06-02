@@ -22,7 +22,9 @@
             <a href="/admin/posts" >Cancel</a>
         </div>
         <div class="col-5 text-right">
+            <?php if (isset($data['id'])) { ?>
             <a class="btn btn-danger" href="/admin/posts/delete/<?php echo $data['id']; ?>" >Delete</a>
+            <?php } ?>
         </div>
     </div>
     

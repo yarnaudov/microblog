@@ -22,9 +22,7 @@ class View extends \Slim\View
         // skip layout render if not set
         if ($this->layout) {
             return parent::render($this->layout, [
-                'content' => $content,
-                'isLoggedIn' => UserModel::model()->isLoggedIn(),
-                'user' => UserModel::model()->getLogedUser()
+                'content' => $content
             ]);
         }
         

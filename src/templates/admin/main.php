@@ -19,10 +19,10 @@
                 <?php if($isLoggedIn) { ?>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                        <li class="nav-item<?php echo $isCurrentRoute('/admin/posts') ? ' active' : '' ?>">
                             <a class="nav-link" href="/admin/posts" >Posts</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item<?php echo $isCurrentRoute('/admin/users') ? ' active' : '' ?>">
                             <a class="nav-link" href="/admin/users" >Users</a>
                         </li>
                     </ul>

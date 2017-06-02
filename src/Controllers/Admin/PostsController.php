@@ -8,10 +8,6 @@ use \App\Models\PostModel;
 class PostsController extends BaseController
 {
     
-    function __construct() {
-        parent::__construct();
-    }
-    
     public function get () {
         $this->app->render('admin/posts.php', [
             'posts' => PostModel::model()->getAll(),
@@ -79,7 +75,7 @@ class PostsController extends BaseController
         
         // if post request save model
         if ($this->app->request->isPost()) {
-            $data = $this->app->request->post();
+            $data = array_merge($data, $this->app->request->post());
             $this->save($id, $data);
         }
         

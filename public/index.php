@@ -1,6 +1,7 @@
 <?php
 
 use \Slim\Slim;
+use \App\Models\UserModel;
 
 require_once '../vendor/autoload.php';
 
@@ -27,8 +28,7 @@ $app->container->singleton('session', function () use ($app) {
 //route protect middleware
 $app->container->singleton('protectRoute', function () use ($app) {
    return function () use ($app) {
-        $user = new \App\Models\UserModel();
-        if (!$user->isLogedIn()) {
+        if (!UserModel::model()->isLogedIn()) {
             $app->redirect('/admin/login');
         }
     };

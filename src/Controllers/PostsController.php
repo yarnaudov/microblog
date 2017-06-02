@@ -29,9 +29,37 @@ class PostsController extends BaseController
         ]);
     }
     
+    private function validate ($data) {
+        $errors = [];
+        
+        // check title
+        if (!isset($data['title']) || empty($data['title'])) {
+            $errors['error.title'] = 'Please fill Title';
+        } else if (mb_strlen($data['title']) > 200) {
+            $errors['error.title'] = 'Title can be maximum 200 characters';
+        }
+        
+        // check text
+        if (!isset($data['text']) || empty($data['text'])) {
+            $errors['error.text'] = 'Please fill Text';
+        }
+        
+        return $errors;
+    }
+        
+    
     private function save ($id = null) {
         
         $data = $this->app->request->post();
+        
+        // validate input data and set flash errors
+        $errors = $this->validate($data);
+        if ($errors) {
+            foreach ($errors as $key => $value) {
+                $this->app->flashNow($key, $value);
+            }
+            return false;
+        }
         
         if ($id) {
             $result = $this->post->update($id, $data);

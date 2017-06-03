@@ -71,7 +71,7 @@ class PostsController extends BaseController
             $this->app->flash('success', 'Post was saved successfuly');
             $this->app->redirect('/posts');
         } else {
-            $this->app->flashNow('error', 'Could not update the post');
+            $this->app->flashNow('error', 'Could not update post');
         }
         
     }
@@ -105,9 +105,9 @@ class PostsController extends BaseController
    
     public function delete ($id) {
         if (PostModel::model()->delete($id)) {
-            $this->app->flash('error', 'Could not delete the post');
-        } else {
             $this->app->flash('error', 'Post was deleted successfuly');
+        } else {
+            $this->app->flash('error', 'Could not delete post');
         }
         $this->app->redirect('/posts');
     }

@@ -71,6 +71,9 @@ $app->get('/', function () use ($app) {
 $app->group('/api', function () use ($app) {
     $app->get('/posts', '\App\Controllers\Api\PostsController:getMany');
     $app->get('/posts/:id', '\App\Controllers\Api\PostsController:get')->conditions(['id' => '[0-9]+']);
+    //$app->put('/posts/:id', '\App\Controllers\Api\PostsController:update')->conditions(['id' => '[0-9]+']);
+    //$app->delete('/posts/:id', '\App\Controllers\Api\PostsController:delete')->conditions(['id' => '[0-9]+']);
+    //$app->post('/posts', '\App\Controllers\Api\PostsController:create');
 });
 
 $app->run();

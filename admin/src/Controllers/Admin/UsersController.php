@@ -45,7 +45,7 @@ class UsersController extends BaseController
             $errors['error.email'] = 'Please fill Email';
         } else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['error.email'] = 'Email is not valid';
-        } else if (mb_strlen($data['email']) > 20) {
+        } else if (mb_strlen($data['email']) > 100) {
             $errors['error.email'] = 'Email can be maximum 100 characters';
         }
         
@@ -114,9 +114,9 @@ class UsersController extends BaseController
    
     public function delete ($id) {
         if (UserModel::model()->delete($id)) {
-            $this->app->flash('error', 'Could not delete user');
-        } else {
             $this->app->flash('error', 'User was deleted successfuly');
+        } else {
+            $this->app->flash('error', 'Could not delete user');
         }
         $this->app->redirect('/users');
     }

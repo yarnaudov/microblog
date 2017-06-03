@@ -33,6 +33,13 @@ class PostsController extends BaseController
             $errors['error.title'] = 'Title can be maximum 200 characters';
         }
         
+        // check brief text
+        if (!isset($data['brief_text']) || empty($data['brief_text'])) {
+            $errors['error.brief_text'] = 'Please fill Brief text';
+        } else if (mb_strlen($data['brief_text']) > 200) {
+            $errors['error.brief_text'] = 'Brief text can be maximum 200 characters';
+        }
+        
         // check text
         if (!isset($data['text']) || empty($data['text'])) {
             $errors['error.text'] = 'Please fill Text';

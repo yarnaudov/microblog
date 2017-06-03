@@ -12,7 +12,7 @@ import { PostService } from '../services/post.service';
 	    <p class="blog-post-meta">
 		{{ post.created_at*1000 | date:"dd MMMM yyyy" }}, by {{ post.user }}
 	    </p>
-	    <p>{{post.text}}</p>\n\
+	    <p>{{post.brief_text}}</p>\n\
 	    <hr>
 	</div>
     `

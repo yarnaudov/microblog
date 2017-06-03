@@ -8,8 +8,16 @@
         </div>
     </div>
     
+    <div class="form-group row<?php echo $flash['error.brief_text'] ? ' has-danger' : '' ?>">
+        <label for="brief_text" class="col-2 col-form-label">Brief text</label>
+        <div class="col-10">
+            <input class="form-control" type="text" name="brief_text" value="<?php echo isset($data['brief_text']) ? $data['brief_text'] : ""; ?>" id="brief_text" >
+            <div class="form-control-feedback"><?php echo $flash['error.brief_text']; ?></div>
+        </div>
+    </div>
+    
     <div class="form-group row<?php echo $flash['error.text'] ? ' has-danger' : '' ?>">
-        <label for="text" class="col-2 col-form-label">Text</label>
+        <label for="text" class="col-2 col-form-label">Full Text</label>
         <div class="col-10">
             <textarea class="form-control" name="text" id="text" rows="10" ><?php echo isset($data['text']) ? $data['text'] : ""; ?></textarea>
             <div class="form-control-feedback"><?php echo $flash['error.text']; ?></div>

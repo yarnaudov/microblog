@@ -14,6 +14,7 @@
             <thead>
                 <tr>
                     <th>Title</th>
+                    <th>Brief text</th>
                     <th>User</th>
                     <th>Created</th>
                     <th>Updated</th>
@@ -28,6 +29,7 @@
                             <?php echo $post['title']; ?>
                         </a>
                     </td>
+                    <td><?php echo $post['brief_text']; ?></td>
                     <td><?php echo $post['user']; ?></td>
                     <td><?php echo $dateHelper($post['created_at']); ?></td>
                     <td><?php echo $dateHelper($post['updated_at']); ?></td>

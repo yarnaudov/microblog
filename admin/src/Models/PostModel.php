@@ -41,9 +41,13 @@ class PostModel extends BaseModel
         
         $user = UserModel::model()->getLogedUser();
         
-        $query = $this->app->db->prepare("INSERT INTO posts (`user_id`, `title`, `text`, `created_at`) VALUES (:user_id, :title, :text, :created_at)");
+        $query = $this->app->db->prepare("
+            INSERT INTO posts (`user_id`, `title`, `brief_text`, `text`, `created_at`)
+            VALUES (:user_id, :title, :brief_text, :text, :created_at)
+        ");
         $query->bindParam(':user_id', $user['id'], \PDO::PARAM_INT);
         $query->bindParam(':title', $data['title'], \PDO::PARAM_STR);
+        $query->bindParam(':brief_text', $data['brief_text'], \PDO::PARAM_STR);
         $query->bindParam(':text', $data['text'], \PDO::PARAM_STR);
         $query->bindParam(':created_at', time(), \PDO::PARAM_INT);
         return $query->execute();
@@ -51,9 +55,17 @@ class PostModel extends BaseModel
     }
     
     public function update ($id, $data) {
-        $query = $this->app->db->prepare("UPDATE posts SET `title` = :title, `text` = :text, `updated_at` = :updated_at WHERE `id` = :id");
+        $query = $this->app->db->prepare("
+            UPDATE posts SET 
+                `title` = :title,
+                `brief_text` = :brief_text,
+                `text` = :text,
+                `updated_at` = :updated_at
+            WHERE `id` = :id
+        ");
         $query->bindParam(':id', $id, \PDO::PARAM_INT);
         $query->bindParam(':title', $data['title'], \PDO::PARAM_STR);
+        $query->bindParam(':brief_text', $data['brief_text'], \PDO::PARAM_STR);
         $query->bindParam(':text', $data['text'], \PDO::PARAM_STR);
         $query->bindParam(':updated_at', time(), \PDO::PARAM_INT);
         return $query->execute();

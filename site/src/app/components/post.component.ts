@@ -10,9 +10,12 @@ import { PostService } from '../services/post.service';
 	    <p class="blog-post-meta">
 		{{ post.created_at*1000 | date:"dd MMMM yyyy" }}, by {{ post.user }}
 	    </p>
-	    <p>{{post.text}}</p>
-	</div>\n\
-	<a routerLink="/posts" >Back to posts</a>
+	    <hr>
+	    <p innerHTML={{post.text}} ></p>
+	    <hr>
+	</div>
+	<div><a routerLink="/posts" >Back to posts</a></div>
+	<br>
     `
 })
 export class PostComponent implements OnInit, OnDestroy {

@@ -1,1 +1,13 @@
 @import '../../node_modules/bootstrap/scss/bootstrap';
+
+.blog-post {
+    .blog-post-title {
+	font-size: 36px;
+    }
+    .blog-post-meta {
+	color: #777;
+	font-size: 18px;
+	font-style: italic;
+	margin-top: 0;
+    }
+}

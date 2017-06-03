@@ -29,7 +29,7 @@ $app->container->singleton('session', function () use ($app) {
 $app->container->singleton('protectRoute', function () use ($app) {
    return function () use ($app) {
         if (!UserModel::model()->isLoggedIn()) {
-            $app->redirect('/admin/login');
+            $app->redirect('/login');
         }
     };
 });

@@ -19,6 +19,7 @@ abstract class RestController extends BaseController
     
     public function sendResponse ($data) {
         $this->app->response->headers->set('Content-Type', 'application/json');
+        $this->app->response->headers->set('Access-Control-Allow-Origin', '*');
         $this->app->response->setBody(json_encode($data));
     }
     

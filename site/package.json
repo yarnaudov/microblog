@@ -10,7 +10,6 @@
     "start": "concurrently \"npm run build:watch\" \"npm run serve\" \"npm run sass:watch\"",
     "sass:watch": "sass --watch src/scss/styles.scss:src/assets/css/styles.css --style compressed",
     "test": "echo \"Error: no test specified\" && exit 1"
-    
   },
   "repository": {
     "type": "git",

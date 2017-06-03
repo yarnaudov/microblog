@@ -28,7 +28,7 @@
                             <?php echo $post['title']; ?>
                         </a>
                     </td>
-                    <td><?php echo $post['user_id']; ?></td>
+                    <td><?php echo $post['user']; ?></td>
                     <td><?php echo $dateHelper($post['created_at']); ?></td>
                     <td><?php echo $dateHelper($post['updated_at']); ?></td>
                 </tr>

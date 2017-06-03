@@ -10,14 +10,29 @@ class PostModel extends BaseModel
     }
     
     public function get ($id) {
-        $query = $this->app->db->prepare("SELECT * FROM posts WHERE id = :id");
+        $query = $this->app->db->prepare("
+            SELECT 
+                p.*,
+                u.name AS user
+            FROM 
+                posts p
+                JOIN users u ON (u.id = p.user_id)
+            WHERE p.id = :id
+        ");
         $query->bindParam(':id', $id, \PDO::PARAM_INT);
         $query->execute();
         return $query->fetch(\PDO::FETCH_ASSOC);
     }
     
     public function getAll () {
-        $query = $this->app->db->prepare("SELECT * FROM posts");
+        $query = $this->app->db->prepare("
+            SELECT 
+                p.*,
+                u.name AS user
+            FROM 
+                posts p
+                JOIN users u ON (u.id = p.user_id)
+        ");
         $query->execute();
         return $query->fetchAll (\PDO::FETCH_ASSOC);
     }

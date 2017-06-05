@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { PostService } from '../services/post.service';
+import { Config } from '../config';
 
 @Component({
-    providers: [PostService],
+    providers: [PostService, Config],
     template: `
 	<div class="blog-post" *ngFor="let post of posts" >
 	    <h2 class="blog-post-title">

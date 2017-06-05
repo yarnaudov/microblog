@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../services/post.service';
+import { Config } from '../config';
 
 @Component({
-    providers: [PostService],
+    providers: [PostService, Config],
     template: `
 	<div class="blog-post">
 	    <h2 class="blog-post-title">{{post.title}}</h2>

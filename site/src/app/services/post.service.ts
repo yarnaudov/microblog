@@ -5,12 +5,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import { Config } from '../config';
+
 @Injectable()
 export class PostService {
     
-    private url = 'http://localhost:8000/api/posts'; // move this to config file
+    private url:string;//'http://localhost:8000/api/posts'; // move this to config file
     
-    constructor(private http: Http) { }
+    constructor(private http: Http, private config: Config) {
+	this.url = this.config.get('api') + '/posts';
+    }
   
     getPosts(): Observable<Object[]> {
 	return this.http.get(this.url).map(res => res.json());

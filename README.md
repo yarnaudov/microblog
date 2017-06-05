@@ -7,7 +7,7 @@ Import file **"admin/data/db.sql"** to the database. This will create new databa
 
 To start admin site run:
 ```
-cd admin;
+cd admin
 composer install
 npm install
 php -S localhost:8000

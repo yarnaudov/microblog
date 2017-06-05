@@ -12,13 +12,17 @@ import { PostComponent } from './components/post.component';
 	HttpModule,
 	RouterModule.forRoot([
 	    {
-	      path: 'posts',
+		path: 'posts',
 		component: PostsComponent
 	    },
 	    {
-	      path: 'posts/:id',
-	      component: PostComponent
+		path: 'posts/:id',
+		component: PostComponent
 	    },
+	    {
+		path: '**',
+		redirectTo: 'posts'
+	    }
 	])
     ],
     declarations: [ 

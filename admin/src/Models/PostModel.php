@@ -4,11 +4,19 @@ namespace App\Models;
 
 class PostModel extends BaseModel
 {
-    
+    /**
+     * Create new class instance
+     * @return \PostModel
+     */
     public static function model () {
         return new self();
     }
     
+    /**
+     * Get item
+     * @param int $id Id of item to get
+     * @return array 
+     */
     public function get ($id) {
         $query = $this->app->db->prepare("
             SELECT 
@@ -24,6 +32,10 @@ class PostModel extends BaseModel
         return $query->fetch(\PDO::FETCH_ASSOC);
     }
     
+    /**
+     * Get all items
+     * @return array 
+     */
     public function getAll () {
         $query = $this->app->db->prepare("
             SELECT 
@@ -37,6 +49,11 @@ class PostModel extends BaseModel
         return $query->fetchAll (\PDO::FETCH_ASSOC);
     }
     
+    /**
+     * Create new item
+     * @param array $data Data for new item
+     * @return bool true on success or false on failure
+     */
     public function create ($data) {
         
         $user = UserModel::model()->getLogedUser();
@@ -54,6 +71,12 @@ class PostModel extends BaseModel
         
     }
     
+    /**
+     * Update item
+     * @param int $id Id of item to update
+     * @param array $data Data for new item
+     * @return bool true on success or false on failure
+     */
     public function update ($id, $data) {
         $query = $this->app->db->prepare("
             UPDATE posts SET 
@@ -72,6 +95,11 @@ class PostModel extends BaseModel
         
     }
     
+    /**
+     * Delete item
+     * @param int $id Id of item to delete
+     * @return bool true on success or false on failure
+     */
     public function delete ($id) {
         $query = $this->app->db->prepare("DELETE FROM posts WHERE id = :id");
         $query->bindParam(':id', $id, \PDO::PARAM_INT);

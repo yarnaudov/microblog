@@ -20,7 +20,7 @@ return [
     'session' => [
         'name' => 'blog_session',
         'expires' => '5 minutes',
-        'secret' => 'A@zC=wFjPn4fEi#1Q3#rR18Y'
+        'secret' => 'A@zC=wFjPn4fEi#1Q3#rR18Y' // 24 characters
     ]
     
 ];
